@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)file:///C:/Users/Admin/Desktop/COSMOS/cosmos-tourism-website.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmos - Experience Rwanda's Beauty</title>
+    <style>
+        :root {
+            --primary: #008000;
+            --secondary: #FDB913;
+            --dark: #333;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .language-selector {
+            display: flex;
+            align-items: center;
+        }
+        
+        .language-selector button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/31283471/pexels-photo-31283471/free-photo-of-children-performing-traditional-rwandan-dance.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #006400;
+            transform: translateY(-3px);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .section {
+            padding: 5rem 10%;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .destination-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .destination-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .destination-content {
+            padding: 1.5rem;
+        }
+        
+        .destination-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .destination-content p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .directory-section {
+            background-color: #f0f8f0;
+        }
+        
+        .search-filter {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .filter-options select {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .directory-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .directory-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .directory-content {
+            padding: 1.5rem;
+        }
+        
+        .directory-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .directory-content p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .rating {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-section {
+            background-color: white;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-card {
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            transition: transform 0.3s;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+        
+        .team-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--dark);
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        .booking-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1600/900') center/cover no-repeat;
+            color: white;
+        }
+        
+        .booking-form {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row > div {
+            flex: 1;
+        }
+        
+        .forum-section {
+            background-color: #f0f8f0;
+        }
+        
+        .forum-posts {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .forum-post {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .post-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .post-content {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .post-actions a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .post-actions a:hover {
+            color: var(--primary);
+        }
+        
+        .reviews-section {
+            background-color: white;
+        }
+        
+        .reviews-slider {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .review-card {
+            background-color: #f9f9f9;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .reviewer {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .reviewer img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+        
+        .reviewer-info h4 {
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+        
+        .reviewer-info .rating {
+            color: var(--secondary);
+        }
+        
+        .review-text {
+            color: #666;
+            font-style: italic;
+        }
+        
+        .footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 10% 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .footer-col p,
+        .footer-col a {
+            color: #bbb;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #444;
+        }
+        
+        .footer-bottom p {
+            color: #bbb;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 3rem 5%;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .search-filter {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-bar {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">Cosmos<span>Rwanda</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#directory">Directory</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="#booking">Book Now</a></li>
+            <li><a href="#forum">Community</a></li>
+        </ul>
+        <div class="language-selector">
+            <button>EN</button>
+            <button>FR</button>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>OUR MISSION</h1>
+        <p>Our think tank mission is to improve tourism in Rwanda by involving local communities and promoting eco- tourism.
+             Employment opportunities in tourism that are ethical for disadvantaged communities in Rwanda.</p>
+        <div>
+            <button class="btn btn-primary">Explore Now</button>
+            <button class="btn btn-secondary">Learn More</button>
+        </div>
+    </section>
+    
+    <!-- Destinations Section -->
+    <section class="section" id="destinations">
+        <div class="section-title">
+            <h2>Our Problem Statement</h2>
+            <div>
+            <p> In Rwanda, the rate of employment among the youth is on a declining trend and a key contributor to this problem is the skill mismatch in the market. Trading Economics says that, "In the last quarter of 2024, the unemployment rate was 14.7%". The challenging economic status of 6.8% inflation rate (National institute of statistics in Rwanda, in 2024) and a non standardized minimum wage further worsens the situations of unemployed youth. According to New Times, Rwanda's tourism revenue rose by 36% from 445$ million in 2022 to 620$ million in 2023. However, it is unclear whether this growth has translated into employment opportunities for the youth.
+                 How can tourism in Rwanda tackle the problem of youth unemployment and how can we target youth in job creation in tourism?</p>
+                </div>
+            <p>Explore Rwanda's most breathtaking locations and immerse yourself in its rich culture and natural wonders</p>
+        </div>
+    
+          <!-- Directory Section -->
+    <section class="section directory-section" id="directory">
+        <div class="section-title">
+            <h2>Our Solution</h2>
+            <p>
+                The solution is to create an app that will be able to make easy but effective communication between customers and Vendors. The app will function as a platform for vendors to display their services and products while getting real-time reviews, promotions, and collaboration. It allows businesses to contact and access their target customers, and customers get a chance to discover the market that they are potential customers in. It has several features: Connecting end-users through a request-based system, linking people to common destinations and interests, Digital platform to advertise local businesses and generate customers. Video pages that provide updates about services in real-time in the preferred language, customer hotlines for support, and easy communication are available in different languages. This solves communication barriers in business and the need for advertisement and promotion. The double benefit of the app is that it functions as a booking app for customers while also being an advertisement platform for all types of vendors. The customers will benefit from the 'link' feature, which allows them to see visitors from the same places and links them for group visitation. The app will be marketed on TikTok for younger users and Facebook for older ones. Another way that the business will be promoted to vendors is by word of mouth and on website listings. The unique thing about our app is that we combined various desired features into one functional app. It functions on both customer and vendor ends, contains booking, connects users through planned group trips, and supports businesses through promotions and advertisement. 
+
+Concise solution statement: The solution is to create an app that will be able to make easy but effective communication between customers and Vendors by Connecting end-users through a request-based system, linking people to common destinations and interests, and creating a Digital platform to advertise local businesses and generate customers.
+            </p>
+        </div>
+
+        <div class="destination-grid">
+            <div class="destination-card">
+                <img src="./cosmos-tourism-website_files/Scenic-walk-around-volcanoes.jpg" alt="Volcanoes National Park">
+                <div class="destination-content">
+                    <h3>Volcanoes National Park</h3>
+                    <p>Home to endangered mountain gorillas and golden monkeys, offering one of Africa's most memorable wildlife experiences.</p>
+                    <button class="btn btn-primary">Explore</button>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="./cosmos-tourism-website_files/2022-12-26.jpg" alt="Nyungwe Forest">
+                <div class="destination-content">
+                    <h3>Nyungwe Forest National Park</h3>
+                    <p>Ancient rainforest with incredible biodiversity, canopy walkways, and chimpanzee tracking opportunities.</p>
+                    <button class="btn btn-primary">Explore</button>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="./cosmos-tourism-website_files/2021-11-16.jpg" alt="Kigali City">
+                <div class="destination-content">
+                    <h3>Kigali City</h3>
+                    <p>Rwanda's clean and vibrant capital city, featuring the moving Genocide Memorial and diverse cultural experiences.</p>
+                    <button class="btn btn-primary">Explore</button>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="./cosmos-tourism-website_files/paradise-malahide.jpg" alt="Lake Kivu">
+                <div class="destination-content">
+                    <h3>Lake Kivu</h3>
+                    <p>Beautiful inland lake offering relaxing beaches, water sports, and stunning sunset cruises.</p>
+                    <button class="btn btn-primary">Explore</button>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="./cosmos-tourism-website_files/akagera-rwanda.jpg" alt="Akagera National Park">
+                <div class="destination-content">
+                    <h3>Akagera National Park</h3>
+                    <p>Savannah and wetland landscape hosting the Big Five animals and exceptional bird-watching opportunities.</p>
+                    <button class="btn btn-primary">Explore</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Directory Section -->
+    <section class="section directory-section" id="directory">
+        <div class="section-title">
+            <h2>Business &amp; Event Directory</h2>
+            <p>Discover local businesses, upcoming events, and tourist attractions that provide authentic Rwandan experiences</p>
+        </div>
+        <div class="search-filter">
+            <div class="search-bar">
+                <input type="text" placeholder="Search businesses, events, or attractions...">
+            </div>
+            <div class="filter-options">
+                <select>
+                    <option>All Categories</option>
+                    <option>Restaurants</option>
+                    <option>Hotels</option>
+                    <option>Tour Operators</option>
+                    <option>Cultural Centers</option>
+                    <option>Events</option>
+                </select>
+                <select>
+                    <option>All Locations</option>
+                    <option>Kigali</option>
+                    <option>Musanze</option>
+                    <option>Rubavu</option>
+                    <option>Nyungwe</option>
+                    <option>Akagera</option>
+                </select>
+            </div>
+        </div>
+        <div class="directory-grid">
+            <div class="directory-card">
+                <img src="./cosmos-tourism-website_files/d17f99b6fd2f903620303e0322a762e9-1160x627.jpg" alt="Nyamirambo Women&#39;s Center">
+                <div class="directory-content">
+                    <div class="rating">★★★★★</div>
+                    <h3>Nyamirambo Women's Center</h3>
+                    <p>Community-based initiative offering cultural tours, handicraft workshops, and authentic local experiences.</p>
+                    <button class="btn btn-primary">View Details</button>
+                </div>
+            </div>
+            <div class="directory-card">
+                <img src="./cosmos-tourism-website_files/ezgif.com-webp-to-jpg-25-860x573.jpg" alt="Kigali Farmers Market">
+                <div class="directory-content">
+                    <div class="rating">★★★★☆</div>
+                    <h3>Kigali Farmers Market</h3>
+                    <p>Weekly event featuring organic produce, artisanal foods, and handcrafted goods from local producers.</p>
+                    <button class="btn btn-primary">View Details</button>
+                </div>
+            </div>
+            <div class="directory-card">
+                <img src="./cosmos-tourism-website_files/facade.jpg" alt="Ubumwe Grande Hotel">
+                <div class="directory-content">
+                    <div class="rating">★★★★★</div>
+                    <h3>Ubumwe Grande Hotel</h3>
+                    <p>Eco-conscious luxury hotel in Kigali with panoramic city views and sustainable practices.</p>
+                    <button class="btn btn-primary">View Details</button>
+                </div>
+            </div>
+            <div class="directory-card">
+                <img src="./cosmos-tourism-website_files/caption.jpg" alt="Rwandan Cycling Experience">
+                <div class="directory-content">
+                    <div class="rating">★★★★☆</div>
+                    <h3>Rwandan Cycling Experience</h3>
+                    <p>Guided bicycle tours through Rwanda's scenic landscapes and rural communities.</p>
+                    <button class="btn btn-primary">View Details</button>
+                </div>
+            </div>
+            <div class="directory-card">
+                <img src="./cosmos-tourism-website_files/Entrance-fees-to-Nyandungu-Eco-Tourism-Park.jpg" alt="Yandungu urban wetland eco park nyandungu park">
+                <div class="directory-content">
+                    <div class="rating">★★★★★</div>
+                    <h3>Nyandungu urban wetland eco park nyandungu park</h3>
+                    <p>Annual gorilla naming ceremony celebrating conservation efforts with cultural performances.</p>
+                    <button class="btn btn-primary">View Details</button>
+                </div>
+            </div>
+            <div class="directory-card">
+                <img src="./cosmos-tourism-website_files/slide21[1].jpg" alt="Inema Arts Center">
+                <div class="directory-content">
+                    <div class="rating">★★★★★</div>
+                    <h3>Inema Arts Center</h3>
+                    <p>Creative hub showcasing contemporary Rwandan art, dance workshops, and cultural events.</p>
+                    <button class="btn btn-primary">View Details</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section class="section team-section" id="team">
+        <div class="section-title">
+            <h2>Meet Our Team</h2>
+            <p>The passionate visionaries behind Cosmos who are dedicated to promoting sustainable tourism in Rwanda</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="./cosmos-tourism-website_files/Kudus.jpg" alt="Abdul Kudus Zakaria Mukhtaru">
+                <h3>Abdul Kudus Zakaria Mukhtaru</h3>
+                <p>Project Lead</p>
+                <p>Tech innovator focused on creating seamless digital experiences for tourism platforms.</p>
+                <p><a href="mailto:a.zakariam@alustudent.com">a.zakariam@alustudent.com</a></p>
+                <div class="social-links">
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="./cosmos-tourism-website_files/Eden.jpg" alt="Eden Melaku Engida">
+                <h3>Eden Melaku Engida</h3>
+                <p>Community Relations</p>
+                <p>Specialist in building bridges between local communities and tourism initiatives.</p>
+                <p><a href="mailto:e.engida@alustudent.com">e.engida@alustudent.com</a></p>
+                <div class="social-links">
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="./cosmos-tourism-website_files/David.jpg" alt="Donkor David Nana Kweku Wiredu">
+                <h3>Donkor David Nana Kweku Wiredu</h3>
+                <p>Technology Director</p>
+                <p>Visionary leader with expertise in sustainable tourism development and community engagement.</p>
+                <p><a href="mailto:d.david@alustudent.com">d.david@alustudent.com</a></p>
+                <div class="social-links">
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="./cosmos-tourism-website_files/Alliah.jpg" alt="Ishimwe Alliah">
+                <h3>Ishimwe Alliah</h3>
+                <p>Marketing Strategist</p>
+                <p>Creative mind behind Cosmos' brand strategy and promotional campaigns.</p>
+                <p><a href="mailto:a.ishimwe7@alustudent.com">a.ishimwe7@alustudent.com</a></p>
+                <div class="social-links">
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+            <div class="team-card">
+                <img src="./cosmos-tourism-website_files/Peniel.jpg" alt="Peniel Nissi Obeng">
+                <h3>Peniel Nissi Obeng</h3>
+                <p>Eco-Tourism Consultant</p>
+                <p>Environmental advocate ensuring all initiatives prioritize sustainability and conservation.</p>
+                <p><a href="mailto:p.obeng@alustudent.com">p.obeng@alustudent.com</a></p>
+                <div class="social-links">
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 4rem;">
+            <div class="section-title">
+                <h2>Our Projects</h2>
+                <p>Innovative initiatives we've implemented to enhance Rwanda's tourism ecosystem</p>
+            </div>
+            <div class="destination-grid">
+                <div class="destination-card">
+                    <!-- <video controls="controls" "autoplay"="width=&quot;600&quot;" height="300" <source="" src="Challenge 1.mp4">
+                </video> -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/rp7DtKybMKg?si=pRuwJGMDs6u46CzC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                      <div class="destination-content">
+                        <h3>Challenge One(1) </h3>
+                        <p> 
+                            Our Thinktank T.COSMOS Introduction
+                        </p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <!-- <video controls="controls" "autoplay"="width=&quot;600&quot;" height="300" <source="" src="Challenge 2.mp4">
+                </video> -->
+                <iframe width="460" height="315" src="https://www.youtube.com/embed/1d0QqGZzgck?si=12ftbdLqVj7ki6ry" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="destination-content">
+                        <h3>Challenge Two(2) </h3>
+                        <p> 
+                            Rediscover Africa, The People of Awra Amba.
+                        </p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <!-- <video controls="controls" "autoplay"="width=&quot;600&quot;" height="300" <source="" src="Challenge 3.mp4">
+                </video> -->
+                <iframe width="460" height="315" src="https://www.youtube.com/embed/bgGhXPLFzSU?si=LhjCP6ABqeCnLGeW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="destination-content">
+                        <h3>Challenge Three(3) </h3>
+                        <p> 
+                            Help Lab is on the way! Embark on our journey to Little gems academy with us.
+                        </p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <!-- <video controls="controls" "autoplay"="width=&quot;600&quot;" height="300" <source="" src="Challenge 4.mp4">
+                </video>   -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/MlSEskXk44E?si=xcOpWcO6tjMOR_Ap" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <div class="destination-content">
+                        <h3>Challenge Two(4) </h3>
+                        <p> 
+                            Hunt for Treasure! Our discovery of tourism in Nyandungu Urban Wetland Eco-Tourism Park.
+                        </p>
+            </div>
+        </div>
+        <div class="destination-card">
+            <!-- <video controls="controls" "autoplay"="width=&quot;600&quot;" height="300" <source="" src="Challenge 5.mp4">
+        </video>   -->
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/mVIFnvQahVQ?si=2zg9-GbJdDx4UZNz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div class="destination-content">
+                <h3>Challenge Five(5) </h3>
+                <p> 
+                    Launch your mission. Our video for $10,000
+                </p>
+            </div>
+        </div>
+        <a href="https://www.figma.com/proto/4n0J51fbtk2wsjXj7Y4Tjp/RWANDA-COSMOS?page-id=0%3A1&amp;node-id=28-3174&amp;p=f&amp;viewport=9%2C179%2C0.15&amp;t=6KJAt2DYbZJUmdFQ-1&amp;scaling=scale-down&amp;content-scaling=fixed&amp;starting-point-node-id=5%3A162&amp;show-proto-sidebar=1" target="_blank" rel="noopener noreferrer">
+            View Our Figma Prototype
+        </a>
+        
+    </div></div></section>
+    
+    <!-- Booking Section -->
+    <section class="section booking-section" id="booking">
+        <div class="section-title">
+            <h2>Book Your Experience</h2>
+            <p>Secure your spot for tours, activities, and authentic cultural experiences across Rwanda</p>
+        </div>
+        <div class="booking-form">
+            <form>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="Enter your email">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label>Number of People</label>
+                        <input type="number" min="1" value="1">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Experience Type</label>
+                        <select>
+                            <option>Wildlife Safari</option>
+                            <option>Cultural Tour</option>
+                            <option>Community Visit</option>
+                            <option>Adventure Activity</option>
+                            <option>Food Experience</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Preferred Date</label>
+                        <input type="date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Special Requests</label>
+                    <textarea rows="4" placeholder="Any special requirements or questions?"></textarea>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">Book Now</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Community Forum Section -->
+    <section class="section forum-section" id="forum">
+        <div class="section-title">
+            <h2>Community Forum</h2>
+            <p>Connect with travelers and locals, share experiences, and discover insider tips about Rwanda</p>
+        </div>
+        <div class="forum-posts">
+            <div class="forum-post">
+                <div class="post-header">
+                    <div class="post-author">
+                        <img src="./cosmos-tourism-website_files/Sarah.jpg" alt="User Avatar">
+                        <div>
+                            <h4>Sarah</h4>
+                            <p>Traveler from Canada</p>
+                        </div>
+                    </div>
+                    <div>2 days ago</div>
+                </div>
+                <div class="post-content">
+                    <p>Just returned from a gorilla trekking experience in Volcanoes National Park. It was absolutely life-changing! The guides were knowledgeable and the conservation efforts are impressive. I highly recommend booking well in advance as permits are limited.</p>
+                </div>
+                <div class="post-footer">
+                    <div>12 replies</div>
+                    <div class="post-actions">
+                        <a href="#">Like</a>
+                        <a href="#">Reply</a>
+                        <a href="#">Share</a>
+                    </div></div></div></div></section></section></body></html>
